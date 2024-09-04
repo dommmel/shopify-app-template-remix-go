@@ -1,0 +1,7 @@
+name = "remix"
+roles = ["frontend"]
+port = 5173
+
+[commands]
+predev = "./codegen.sh"
+dev = "npm exec remix vite:dev"

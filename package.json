@@ -1,0 +1,10 @@
+{
+  "name": "shopify-app-template-remix-go",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "shopify app dev",
+    "codegen": "npm run codegen:frontend && npm run codegen:backend",
+    "codegen:frontend": "cd javascript-bff && ./codegen.sh",
+    "codegen:backend": "cd golang-backend && ./codegen.sh"
+  }
+}

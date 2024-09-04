@@ -1,0 +1,6 @@
+name = "Go"
+roles = ["backend"]
+
+[commands]
+predev = "go mod tidy && ./codegen.sh"
+dev = "go run github.com/bokwoon95/wgo run ."

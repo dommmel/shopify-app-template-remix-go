@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package user;
+option go_package = "github.com/dommmel/shopify-app-template-remix-go/user";
+
+service UserService {
+  rpc FindOrCreateUserByEncodedSessionToken (TokenRequest) returns (UserResponse);
+  rpc GetUser (UserRequest) returns (UserResponse);
+}
+
+
+message UserRequest {
+  int64 ID = 1;
+}
+
+message TokenRequest {
+  string token = 1;
+}
+
+message UserResponse {
+  int64 ID = 1;
+  string accessToken = 2;
+  string myshopifyDomain = 3;
+  string scopes = 4;
+}
