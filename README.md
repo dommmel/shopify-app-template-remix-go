@@ -12,20 +12,33 @@ The Shopify-related code is located in
 - SQLite is used by default but can be replaced with any other database
 
 ## Prerequisites:
-- `protoc` binary: See [protoc installation guide](https://grpc.io/docs/protoc-installation/)
 - Shopify CLI
 - Go (Golang)
 - Node.js
+- `protoc` binary: See [protoc installation guide](https://grpc.io/docs/protoc-installation/)
+
+- [Grpc for go](https://grpc.io/docs/languages/go/quickstart/)
+  ```bash
+    go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+    go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+  ```
+
+## Setup Shopfiy App Config
+
+In the project root, run
+
+    shopify app config link
+
+to create a `shopify.app.toml` file in the root of the project. Be sure to enable [managed installs](https://shopify.dev/docs/apps/build/authentication-authorization/app-installation).
+
 
 ## Running the Development Servers
 
-Run the following command:
+In the project root, run
 
 ```bash
 shopify app dev
 ```
-
-On the first run, this will create a `shopify.app.toml` file in the root of the project. Be sure to enable [managed installs](https://shopify.dev/docs/apps/build/authentication-authorization/app-installation).
 
 This command will:
 - Install dependencies

@@ -4,7 +4,7 @@
   "scripts": {
     "start": "shopify app dev",
     "codegen": "npm run codegen:frontend && npm run codegen:backend",
-    "codegen:frontend": "cd javascript-bff && ./codegen.sh",
+    "codegen:frontend": "cd remix-frontend && ./codegen.sh",
     "codegen:backend": "cd golang-backend && ./codegen.sh"
   }
 }
