@@ -5,6 +5,8 @@ import (
 	"errors"
 )
 
+var ErrUserNotFound = errors.New("user not found")
+
 // UserSQLiteRepository handles all database interactions related to the User model.
 type UserSQLiteRepository struct {
 	db *sql.DB
@@ -22,7 +24,7 @@ func (r *UserSQLiteRepository) GetUserByID(id uint64) (*User, error) {
 	err := r.db.QueryRow(query, id).Scan(&user.ID, &user.AccessToken, &user.MyshopifyDomain, &user.Scopes)
 	if err != nil {
 		if err == sql.ErrNoRows {
-			return nil, errors.New("user not found")
+			return nil, ErrUserNotFound
 		}
 		return nil, err
 	}
@@ -36,7 +38,7 @@ func (r *UserSQLiteRepository) GetUserByMyshopify(myshopifyDomain string) (*User
 	err := r.db.QueryRow(query, myshopifyDomain).Scan(&user.ID, &user.AccessToken, &user.MyshopifyDomain, &user.Scopes)
 	if err != nil {
 		if err == sql.ErrNoRows {
-			return nil, errors.New("user not found")
+			return nil, ErrUserNotFound
 		}
 		return nil, err
 	}

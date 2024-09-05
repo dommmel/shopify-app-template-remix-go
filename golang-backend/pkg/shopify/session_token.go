@@ -16,7 +16,7 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 )
 
-const JWT_PERMITTED_CLOCK_TOLERANCE = 10 * time.Second // Clock tolerance of 15 seconds
+const JWT_PERMITTED_CLOCK_TOLERANCE = 20 * time.Second // Clock tolerance of 15 seconds
 
 var (
 	APIKey       string

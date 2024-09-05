@@ -23,7 +23,8 @@ func (s *UserService) FindOrCreateUserByEncodedSessionToken(sessionToken string)
 
 	// Try to get user by Shopify domain
 	u, err := s.repo.GetUserByMyshopify(myshopifyDomain)
-	if err != nil {
+
+	if err == ErrUserNotFound {
 		// No user found, call Shopify API to create one
 		resp, err := shopify.GetAccessTokenFromShopify(myshopifyDomain, sessionToken)
 		if err != nil {
@@ -38,6 +39,11 @@ func (s *UserService) FindOrCreateUserByEncodedSessionToken(sessionToken string)
 		}
 
 		return s.repo.CreateUser(newUser)
+	}
+
+	// Throw other errors
+	if err != nil {
+		return nil, err
 	}
 
 	// If user found but scopes have changed, update the user

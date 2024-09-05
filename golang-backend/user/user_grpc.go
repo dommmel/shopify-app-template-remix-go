@@ -24,7 +24,7 @@ func NewUserHandler(service *UserService) *UserHandler {
 func (h *UserHandler) GetUser(ctx context.Context, userRequest *pb.UserRequest) (*pb.UserResponse, error) {
 	user, err := h.service.repo.GetUserByID(uint64(userRequest.ID))
 	if err != nil {
-		if err.Error() == "user not found" {
+		if err == ErrUserNotFound {
 			log.Printf("No user found with ID %d", userRequest.ID)
 			return nil, status.Errorf(codes.NotFound, "User not found")
 		}
