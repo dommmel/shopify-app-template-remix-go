@@ -2,4 +2,3 @@
 shopify.app.toml
 **/*.db
 .env
-NOTES.md
