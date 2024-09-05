@@ -6,6 +6,9 @@ import tsconfigPaths from "vite-tsconfig-paths";
 installGlobals();
 
 export default defineConfig({
+  define: {
+    'import.meta.env.SHOPIFY_API_KEY': JSON.stringify(process.env.SHOPIFY_API_KEY),
+  },
   plugins: [
     remix({
       future: {
