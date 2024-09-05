@@ -1,8 +1,22 @@
-import { HeadersFunction, MetaFunction, json, ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
+import { 
+  HeadersFunction,
+  MetaFunction,
+  json,
+  ActionFunctionArgs,
+  LoaderFunctionArgs,
+} from "@remix-run/node";
 import { getUser } from "../grpc/user.server";
 import { useRouteError, useLoaderData, useFetcher } from "@remix-run/react";
 import { boundary } from "@shopify/shopify-app-remix/server";
 import { authenticate } from "../.server/authenticate";
+import {
+  Layout,
+  Page,
+  Card,
+} from "@shopify/polaris";
+import { TitleBar } from "@shopify/app-bridge-react";
+
+
 export const meta: MetaFunction = () => {
   return [
     { title: "New Remix App" },
@@ -32,15 +46,25 @@ export default function Index() {
   const user = fetcher.data || loaderDataUser;
 
   return (
-    <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-      <h1>User</h1>
-      <fetcher.Form method="post">
-        <input type="number" name="userId" defaultValue={1} />
-        <button type="submit">Fetch User</button>
-      </fetcher.Form>
-      <pre>{JSON.stringify(user, null, 2)}</pre>
-      <pre>Current User: {JSON.stringify(loaderDataUser, null, 2)}</pre>
-    </div>
+    <Page>
+      <TitleBar title="App home page" />
+      <Layout>
+        <Layout.Section>
+        <Card>
+          <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
+            <h1>User</h1>
+            <fetcher.Form method="post">
+              <input type="number" name="userId" defaultValue={1} />
+              <button type="submit">Fetch User</button>
+            </fetcher.Form>
+            <pre>{JSON.stringify(user, null, 2)}</pre>
+            <pre>Current User: {JSON.stringify(loaderDataUser, null, 2)}</pre>
+          </div>
+        </Card>
+        </Layout.Section>
+      </Layout>
+    </Page>
+
   );
 }
 
