@@ -11,18 +11,18 @@ import (
 
 // UserHandler implements the gRPC UserServiceServer interface.
 type UserHandler struct {
-	repo *UserRepository
+	service *UserService
 	pb.UnimplementedUserServiceServer
 }
 
 // NewUserHandler creates a new instance of UserHandler with the provided repository.
-func NewUserHandler(repo *UserRepository) *UserHandler {
-	return &UserHandler{repo: repo}
+func NewUserHandler(service *UserService) *UserHandler {
+	return &UserHandler{service: service}
 }
 
 // GetUser handles the GetUser gRPC request and uses the repository directly.
 func (h *UserHandler) GetUser(ctx context.Context, userRequest *pb.UserRequest) (*pb.UserResponse, error) {
-	user, err := h.repo.GetUserByID(uint64(userRequest.ID))
+	user, err := h.service.repo.GetUserByID(uint64(userRequest.ID))
 	if err != nil {
 		if err.Error() == "user not found" {
 			log.Printf("No user found with ID %d", userRequest.ID)
@@ -42,7 +42,7 @@ func (h *UserHandler) GetUser(ctx context.Context, userRequest *pb.UserRequest) 
 
 // FindOrCreateUserByEncodedSessionToken handles the token-based user creation.
 func (h *UserHandler) FindOrCreateUserByEncodedSessionToken(ctx context.Context, tokenRequest *pb.TokenRequest) (*pb.UserResponse, error) {
-	user, err := h.repo.FindOrCreateUserByEncodedSessionToken(tokenRequest.Token)
+	user, err := h.service.FindOrCreateUserByEncodedSessionToken(tokenRequest.Token)
 	if err != nil {
 		log.Printf("Error creating user: %v", err)
 		return nil, status.Errorf(codes.Internal, "Internal server error")

@@ -27,8 +27,8 @@ func main() {
 		log.Fatalf("Failed to create users table: %v", err)
 	}
 	// Setup repository and handler
-	userRepo := user.NewUserRepository(db)
-	userHandler := user.NewUserHandler(userRepo)
+	userService := user.NewUserService(user.NewUserSQLiteRepository(db))
+	userHandler := user.NewUserHandler(userService)
 
 	lis, err := net.Listen("tcp", ":50051")
 	if err != nil {

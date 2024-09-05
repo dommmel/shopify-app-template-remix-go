@@ -48,6 +48,7 @@ This command will:
 
 
 ## Things Not Included:
+- (managed) Billing
 - Encryption at rest
 - Webhooks
 - Graphql Shopify API clients
