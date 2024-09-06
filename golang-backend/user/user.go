@@ -7,3 +7,9 @@ type User struct {
 	MyshopifyDomain string
 	Scopes          string
 }
+type UserRepository interface {
+	GetUserByID(id uint64) (*User, error)
+	GetUserByMyshopify(myshopifyDomain string) (*User, error)
+	CreateUser(user *User) (*User, error)
+	UpdateUser(user *User) (*User, error)
+}

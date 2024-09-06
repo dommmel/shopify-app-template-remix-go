@@ -7,10 +7,10 @@ import (
 )
 
 type UserService struct {
-	repo *UserSQLiteRepository
+	repo UserRepository
 }
 
-func NewUserService(repo *UserSQLiteRepository) *UserService {
+func NewUserService(repo UserRepository) *UserService {
 	return &UserService{repo: repo}
 }
 
